@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -24,25 +25,67 @@ public class Bingo20 {
      */
     public static void main(String[] args) {
         
-
-        //oedir al usuario que suba ruta de archivo donde estan cartillas
-        //cargar archivo en un listas de diccionario {id, avlNumerosCartones}
-        //pedir al usuario que ingrese numeros de bola para rondaAmarillos, rondaAzul, rondaRoja 
-        //imprimir ganadores por ronda
         
         int n= (int) Math.floor(Math.random()*(9999999-1000000+1)+1000000);
   
+        
+        
+        
+        System.out.println("*******BINGO 2.0********");
+        Scanner sc= new Scanner(System.in);  
+        System.out.println("Ingrese la ruta del archivo de los cartones");
+        String ruta= sc.nextLine(); 
         
         HashMap<String,TreeAVL> Amarillo= Creartabla("Amarillo");
         HashMap<String,TreeAVL> Azul= Creartabla("Azul");
         HashMap<String,TreeAVL> Rojo= Creartabla("Rojo");
         
-        System.out.println("Amarillo");
-        System.out.println(Amarillo.size());
-        System.out.println("Azul");
-        System.out.println(Azul.size());
-        System.out.println("Rojo");
-        System.out.println(Rojo.size());
+        System.out.println("Empecemos con la ronda de los cartones Amarillos");
+        System.out.println("Ingrese números entre 0-20");
+        boolean cierto=true;
+        while(cierto){
+            
+            int i=1;
+            if(i<15){
+                System.out.println("Número ["+i+"]:");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20){
+                    String tmp=buscarNumeros(Amarillo, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        cierto=false;
+                    }
+
+                    i++;
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                     i--;
+                }
+            }
+            
+            else if(i==15){
+                System.out.println("Como no se ha encontrado ganador, vamos a la ronda extra");
+                System.out.println("Ingresa un número: ");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20){
+                    String tmp=buscarNumeros(Amarillo, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        cierto=false;
+                    }
+                    
+                    System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Amarillos");
+                    cierto=false;
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                     i--;
+                }
+                
+            }
+                
+            }
 
     }
     
@@ -51,7 +94,7 @@ public class Bingo20 {
        Random numero= new Random();
        
        HashMap<String, TreeAVL> tabla = new HashMap<String, TreeAVL>();
-   Comparator<Integer> g = (n1, n2) -> n1.compareTo(n2);
+        Comparator<Integer> g = (n1, n2) -> n1.compareTo(n2);
 
         TreeAVL miArbol = new TreeAVL(g);
        int x=0;
@@ -74,5 +117,23 @@ public class Bingo20 {
             }        
     }
         return tabla;
+    }
+    
+    public static String buscarNumeros(HashMap<String, TreeAVL> map, Integer numBuscar){
+        
+        
+        
+        for (String key : map.keySet()) {
+            TreeAVL tmpArbol=map.get(key);
+            tmpArbol.remove(numBuscar);
+            if(tmpArbol.getSize()==0){
+                return key;
+            }
+        
+        }
+        return null;
+        
+    
+        
     }
 }

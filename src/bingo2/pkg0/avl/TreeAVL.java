@@ -10,6 +10,23 @@ public class TreeAVL<E> {
 
     private Comparator<E> f;
     private Node<E> root;
+    private int size;
+
+    public Comparator<E> getF() {
+        return f;
+    }
+
+    public void setF(Comparator<E> f) {
+        this.f = f;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public TreeAVL(Comparator<E> g) {
         this.f = g;
@@ -88,6 +105,7 @@ public class TreeAVL<E> {
             return false;
         }
         this.root = add(e, this.root);
+        size++;
         return true;
     }
 
@@ -169,6 +187,7 @@ public class TreeAVL<E> {
             return false;
         }
         this.root = remove(data, this.root);
+        size--;
         return true;
     }
 
