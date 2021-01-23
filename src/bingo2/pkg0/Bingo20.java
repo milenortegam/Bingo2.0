@@ -6,6 +6,8 @@
 package bingo2.pkg0;
 
 import bingo2.pkg0.avl.TreeAVL;
+import java.io.File;
+import java.io.FileNotFoundException;
 import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,23 +28,24 @@ public class Bingo20 {
     public static void main(String[] args) {
         
         
-        int n= (int) Math.floor(Math.random()*(9999999-1000000+1)+1000000);
+        //int n= (int) Math.floor(Math.random()*(9999999-1000000+1)+1000000);
   
         System.out.println("*******BINGO 2.0********");
         Scanner sc= new Scanner(System.in);  
         System.out.println("Ingrese la ruta del archivo de los cartones");
-        String ruta= sc.nextLine(); 
-        
-        HashMap<String,TreeAVL> Amarillo= Creartabla("Amarillo");
-        HashMap<String,TreeAVL> Azul= Creartabla("Azul");
-        HashMap<String,TreeAVL> Rojo= Creartabla("Rojo");
+        //String ruta= sc.nextLine(); 
+        String ruta= "C:\\Users\\hp\\Desktop\\6to Semestre\\Análisis de Algoritmos\\Proyecto Final\\proyectoAnalisis\\Bingo2.0\\src\\bingo2\\pkg0\\generado.txt";
+        HashMap<String,TreeAVL> Amarillo= Creartabla("Amarillo",ruta);
+        HashMap<String,TreeAVL> Azul= Creartabla("Azul", ruta);
+        HashMap<String,TreeAVL> Rojo= Creartabla("Rojo", ruta);
         
         System.out.println("Empecemos con la ronda de los cartones Amarillos");
         System.out.println("Ingrese números entre 0-20");
         boolean cierto=true;
+        int i=1;
         while(cierto){
             
-            int i=1;
+            
             if(i<15){
                 System.out.println("Número ["+i+"]:");
                 Integer numero= sc.nextInt(); 
@@ -54,6 +57,7 @@ public class Bingo20 {
                     }
 
                     i++;
+                    System.out.println("+++"+i);
                 }
                 else{
                     System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
@@ -81,38 +85,102 @@ public class Bingo20 {
                 }
                 
             }
-                
+            else{
+                cierto=false;
+            }  
             }
 
     }
     
-    public static HashMap<String, TreeAVL> Creartabla(String color){
+    public static HashMap<String, TreeAVL> Creartabla(String color, String ruta){
        
-       Random numero= new Random();
        
-       HashMap<String, TreeAVL> tabla = new HashMap<String, TreeAVL>();
+       
+        HashMap<String, TreeAVL> tabla = new HashMap<>();
         Comparator<Integer> g = (n1, n2) -> n1.compareTo(n2);
 
-        TreeAVL miArbol = new TreeAVL(g);
-       int x=0;
-        for(int i=0; i<5000; i++){
-            // Amarillo1234567
-            String codigo= color;
-            
-            int n= (int) Math.floor(Math.random()*(9999999-1000000+1)+1000000);
-            String id= String.valueOf(n);
-            codigo=codigo+id;
-            
-            
-            //AQUI VA EL ARBOL
-            
-            
-            
-            
-            if(!tabla.containsKey(codigo)){
-                tabla.put(codigo, miArbol);
-            }        
-    }
+        
+        
+         switch(color){
+             case "Amarillo":
+                 try {
+                File cartones = new File(ruta);
+                Scanner lector = new Scanner(cartones);
+                while (lector.hasNextLine()) {
+                  TreeAVL miArbol = new TreeAVL(g);
+                  String linea = lector.nextLine();
+                  String[] datos=linea.split(",");
+                  if(datos[0].contains("Amarillo")){
+                      
+                      for(int i=1; i<15;i++){
+                          miArbol.add(Integer. parseInt(datos[i]));
+                          
+                      }
+                      tabla.put(datos[0], miArbol);
+                      
+                  }
+                  
+        }
+                lector.close();
+        } catch (FileNotFoundException e) {
+                System.out.println("Ocurrió un error");
+                e.printStackTrace();
+        }
+        case "Azul":
+                 try {
+                File cartones = new File(ruta);
+                Scanner lector = new Scanner(cartones);
+                while (lector.hasNextLine()) {
+                  TreeAVL miArbol = new TreeAVL(g);
+                  String linea = lector.nextLine();
+                  String[] datos=linea.split(",");
+                  if(datos[0].contains("Azul")){
+                      
+                      for(int i=1; i<15;i++){
+                          miArbol.add(Integer. parseInt(datos[i]));
+                          
+                      }
+                      tabla.put(datos[0], miArbol);
+                      
+                  }
+                  
+        }
+                lector.close();
+        } catch (FileNotFoundException e) {
+                System.out.println("Ocurrió un error");
+                e.printStackTrace();
+        }
+        case "Rojo":
+                 try {
+                File cartones = new File(ruta);
+                Scanner lector = new Scanner(cartones);
+                while (lector.hasNextLine()) {
+                  TreeAVL miArbol = new TreeAVL(g);
+                  String linea = lector.nextLine();
+                  String[] datos=linea.split(",");
+                  if(datos[0].contains("Rojo")){
+                      
+                      for(int i=1; i<12;i++){
+                          miArbol.add(Integer. parseInt(datos[i]));
+                          
+                      }
+                      tabla.put(datos[0], miArbol);
+                      
+                  }
+                  
+        }
+                lector.close();
+        } catch (FileNotFoundException e) {
+                System.out.println("Ocurrió un error");
+                e.printStackTrace();
+        }
+                 
+         }
+         
+         
+        
+        
+        
         return tabla;
     }
     
