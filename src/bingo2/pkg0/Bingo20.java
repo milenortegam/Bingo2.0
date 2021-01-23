@@ -28,9 +28,6 @@ public class Bingo20 {
         
         int n= (int) Math.floor(Math.random()*(9999999-1000000+1)+1000000);
   
-        
-        
-        
         System.out.println("*******BINGO 2.0********");
         Scanner sc= new Scanner(System.in);  
         System.out.println("Ingrese la ruta del archivo de los cartones");
