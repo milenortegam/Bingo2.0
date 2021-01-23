@@ -33,8 +33,8 @@ public class Bingo20 {
         System.out.println("*******BINGO 2.0********");
         Scanner sc= new Scanner(System.in);  
         System.out.println("Ingrese la ruta del archivo de los cartones");
-        //String ruta= sc.nextLine(); 
-        String ruta= "C:\\Users\\hp\\Desktop\\6to Semestre\\Análisis de Algoritmos\\Proyecto Final\\proyectoAnalisis\\Bingo2.0\\src\\bingo2\\pkg0\\generado.txt";
+        String ruta= sc.nextLine(); 
+        //String ruta= "C:\\Users\\hp\\Desktop\\6to Semestre\\Análisis de Algoritmos\\Proyecto Final\\proyectoAnalisis\\Bingo2.0\\src\\bingo2\\pkg0\\generado.txt";
         HashMap<String,TreeAVL> Amarillo= Creartabla("Amarillo",ruta);
         HashMap<String,TreeAVL> Azul= Creartabla("Azul", ruta);
         HashMap<String,TreeAVL> Rojo= Creartabla("Rojo", ruta);
@@ -81,7 +81,6 @@ public class Bingo20 {
                 }
                 else{
                     System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                     i--;
                 }
                 
             }
