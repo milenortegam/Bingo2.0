@@ -87,6 +87,103 @@ public class Bingo20 {
                 cierto=false;
             }  
             }
+         System.out.println("Ahora la ronda de los cartones Azules");
+        System.out.println("Ingrese números entre 0-20");
+        boolean cierto2=true;
+        int i2=1;
+        while(cierto2){
+            
+            
+            if(i2<15){
+                System.out.println("Número ["+i2+"]:");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20){
+                    String tmp=buscarNumeros(Azul, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        cierto2=false;
+                    }
+
+                    i2++; 
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                     
+                }
+            }
+            
+            else if(i2==15){
+                System.out.println("Como no se ha encontrado ganador, vamos a la ronda extra");
+                System.out.println("Ingresa un número: ");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20){
+                    String tmp=buscarNumeros(Azul, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        break;
+                    }
+                    
+                    System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Azul");
+                    cierto2=false;
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                }
+                
+            }
+            else{
+                cierto2=false;
+            }  
+            }
+        
+         System.out.println("Ahora la ronda de los cartones Rojos");
+        System.out.println("Ingrese números entre 0-20");
+        boolean cierto3=true;
+        int i3=1;
+        while(cierto3){
+            
+            
+            if(i3<12){
+                System.out.println("Número ["+i3+"]:");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20){
+                    String tmp=buscarNumeros(Rojo, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        cierto3=false;
+                    }
+
+                    i3++; 
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                     
+                }
+            }
+            
+            else if(i3==12){
+                System.out.println("Como no se ha encontrado ganador, vamos a la ronda extra");
+                System.out.println("Ingresa un número: ");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20){
+                    String tmp=buscarNumeros(Rojo, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        break;
+                    }
+                    
+                    System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Rojos");
+                    cierto3=false;
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                }
+                
+            }
+            else{
+                cierto3=false;
+            }  
+            }
 
     }
     
