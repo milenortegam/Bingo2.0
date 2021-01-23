@@ -56,8 +56,7 @@ public class Bingo20 {
                         cierto=false;
                     }
 
-                    i++;
-                    System.out.println("+++"+i);
+                    i++; 
                 }
                 else{
                     System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
@@ -73,7 +72,7 @@ public class Bingo20 {
                     String tmp=buscarNumeros(Amarillo, numero);
                     if(tmp!=null){
                         System.out.println("El ganador de esta ronda es: "+tmp);
-                        cierto=false;
+                        break;
                     }
                     
                     System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Amarillos");
