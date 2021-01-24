@@ -36,14 +36,15 @@ public class Bingo20 {
         HashMap<String, TreeAVL> tabla = new HashMap<>();
         Comparator<Integer> g = (n1, n2) -> n1.compareTo(n2);    
         
-         switch(color){
-            case "Amarillo":
-                formarArbol(ruta, g, tabla, color, 15);                
-            case "Azul":
-                formarArbol(ruta, g, tabla, color, 15 );
-            case "Rojo":
-                formarArbol(ruta, g, tabla, color,12 );                
-         }        
+        if(color.equals("Amarillo")){
+            formarArbol(ruta, g, tabla, color, 15);
+        }
+        else if (color.equals("Azul")){
+            formarArbol(ruta, g, tabla, color, 15 );
+        }
+        else if(color.equals("Rojo")){
+            formarArbol(ruta, g, tabla, color,12 ); 
+        }   
         return tabla;
     }
     
@@ -121,5 +122,5 @@ public class Bingo20 {
         } catch (FileNotFoundException e) {
                 System.out.println("Archivo no encontrado");  
         }       
-   }     
+   } 
 }
