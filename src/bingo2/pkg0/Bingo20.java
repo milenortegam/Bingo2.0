@@ -10,16 +10,20 @@ import java.util.Scanner;
  * @author Milen Ortega Hp
  */
 public class Bingo20 {
-    
     public static void main(String[] args) {
         System.out.println("*******BINGO 2.0********"); 
         System.out.println("Desea ingresar la ruta del archivo de sus cartones [si] o [no]");
         Scanner sc= new Scanner(System.in); 
         String siOno= sc.nextLine().toLowerCase();
         String ruta;
+        
         if("si".equals(siOno)){
-            System.out.println("Escriba la ruta a su archivo: ");
+            System.out.println("Escriba la ruta de su archivo: ");
             ruta=sc.nextLine();
+            while(validarRuta(ruta)==false){
+                System.out.println("Escriba la ruta de su archivo: ");
+                ruta=sc.nextLine();
+            }
         }
         else{
             ruta= "src\\bingo2\\pkg0\\test.txt";
@@ -38,6 +42,18 @@ public class Bingo20 {
         ingresoNumeros (11, Rojo);
         
         System.out.println("\n El juego ha acabado, gracias por participar");
+    }
+    
+    public static boolean validarRuta(String ruta){   
+        File f = new File(ruta);
+        if (f.exists()){  
+            System.out.println("Archivo encontrado");
+            return true;
+        }
+        else { 
+           System.out.println("Archivo no encontrado. Intente nuevamente\n");
+           return false;
+        }
     }
     
     public static HashMap<String, TreeAVL> Creartabla(String color, String ruta){    
