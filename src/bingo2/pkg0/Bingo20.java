@@ -1,295 +1,136 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bingo2.pkg0;
-
 import bingo2.pkg0.avl.TreeAVL;
 import java.io.File;
 import java.io.FileNotFoundException;
-import static java.lang.Math.random;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 import java.util.Scanner;
-
 /**
  *
  * @author Milen Ortega Hp
  */
 public class Bingo20 {
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        
-        
-        //int n= (int) Math.floor(Math.random()*(9999999-1000000+1)+1000000);
-  
-        System.out.println("*******BINGO 2.0********");
-        Scanner sc= new Scanner(System.in);  
-        System.out.println("Ingrese la ruta del archivo de los cartones");
-        //String ruta= sc.nextLine(); 
-        String ruta= "C:\\Users\\hp\\Desktop\\6to Semestre\\Análisis de Algoritmos\\Proyecto Final\\proyectoAnalisis\\Bingo2.0\\src\\bingo2\\pkg0\\generado.txt";
+        System.out.println("*******BINGO 2.0********"); 
+        System.out.println("Desea ingresar la ruta del archivo de sus cartones [si] o [no]");
+        Scanner sc= new Scanner(System.in); 
+        String siOno= sc.nextLine().toLowerCase();
+        String ruta;
+        if("si".equals(siOno)){
+            System.out.println("Escriba la ruta a su archivo: ");
+            ruta=sc.nextLine();
+        }
+        else{
+            ruta= "src\\bingo2\\pkg0\\test.txt";
+        }
         HashMap<String,TreeAVL> Amarillo= Creartabla("Amarillo",ruta);
         HashMap<String,TreeAVL> Azul= Creartabla("Azul", ruta);
         HashMap<String,TreeAVL> Rojo= Creartabla("Rojo", ruta);
         
-        System.out.println("Empecemos con la ronda de los cartones Amarillos");
-        System.out.println("Ingrese números entre 0-20");
-        boolean cierto=true;
-        int i=1;
-        while(cierto){
-            
-            
-            if(i<15){
-                System.out.println("Número ["+i+"]:");
-                Integer numero= sc.nextInt(); 
-                if(numero<=20){
-                    String tmp=buscarNumeros(Amarillo, numero);
-                    if(tmp!=null){
-                        System.out.println("El ganador de esta ronda es: "+tmp);
-                        cierto=false;
-                    }
-
-                    i++; 
-                }
-                else{
-                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                     
-                }
-            }
-            
-            else if(i==15){
-                System.out.println("Como no se ha encontrado ganador, vamos a la ronda extra");
-                System.out.println("Ingresa un número: ");
-                Integer numero= sc.nextInt(); 
-                if(numero<=20){
-                    String tmp=buscarNumeros(Amarillo, numero);
-                    if(tmp!=null){
-                        System.out.println("El ganador de esta ronda es: "+tmp);
-                        break;
-                    }
-                    
-                    System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Amarillos");
-                    cierto=false;
-                }
-                else{
-                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                }
-                
-            }
-            else{
-                cierto=false;
-            }  
-            }
-         System.out.println("Ahora la ronda de los cartones Azules");
-        System.out.println("Ingrese números entre 0-20");
-        boolean cierto2=true;
-        int i2=1;
-        while(cierto2){
-            
-            
-            if(i2<15){
-                System.out.println("Número ["+i2+"]:");
-                Integer numero= sc.nextInt(); 
-                if(numero<=20){
-                    String tmp=buscarNumeros(Azul, numero);
-                    if(tmp!=null){
-                        System.out.println("El ganador de esta ronda es: "+tmp);
-                        cierto2=false;
-                    }
-
-                    i2++; 
-                }
-                else{
-                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                     
-                }
-            }
-            
-            else if(i2==15){
-                System.out.println("Como no se ha encontrado ganador, vamos a la ronda extra");
-                System.out.println("Ingresa un número: ");
-                Integer numero= sc.nextInt(); 
-                if(numero<=20){
-                    String tmp=buscarNumeros(Azul, numero);
-                    if(tmp!=null){
-                        System.out.println("El ganador de esta ronda es: "+tmp);
-                        break;
-                    }
-                    
-                    System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Azul");
-                    cierto2=false;
-                }
-                else{
-                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                }
-                
-            }
-            else{
-                cierto2=false;
-            }  
-            }
+        System.out.println("\n Empecemos con la ronda de los cartones Amarillos");
+        ingresoNumeros(14, Amarillo);
+          
+        System.out.println("\n Ahora la ronda de los cartones Azules");
+        ingresoNumeros(14, Azul);
+             
+        System.out.println("\n Ahora la ronda de los cartones Rojos");
+        ingresoNumeros (11, Rojo);
         
-         System.out.println("Ahora la ronda de los cartones Rojos");
-        System.out.println("Ingrese números entre 0-20");
-        boolean cierto3=true;
-        int i3=1;
-        while(cierto3){
-            
-            
-            if(i3<12){
-                System.out.println("Número ["+i3+"]:");
-                Integer numero= sc.nextInt(); 
-                if(numero<=20){
-                    String tmp=buscarNumeros(Rojo, numero);
-                    if(tmp!=null){
-                        System.out.println("El ganador de esta ronda es: "+tmp);
-                        cierto3=false;
-                    }
-
-                    i3++; 
-                }
-                else{
-                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                     
-                }
-            }
-            
-            else if(i3==12){
-                System.out.println("Como no se ha encontrado ganador, vamos a la ronda extra");
-                System.out.println("Ingresa un número: ");
-                Integer numero= sc.nextInt(); 
-                if(numero<=20){
-                    String tmp=buscarNumeros(Rojo, numero);
-                    if(tmp!=null){
-                        System.out.println("El ganador de esta ronda es: "+tmp);
-                        break;
-                    }
-                    
-                    System.out.println("Lo sentimos, no existe tabla ganadora en la ronda de los Rojos");
-                    cierto3=false;
-                }
-                else{
-                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
-                }
-                
-            }
-            else{
-                cierto3=false;
-            }  
-            }
-
+        System.out.println("\n El juego ha acabado, gracias por participar");
     }
     
-    public static HashMap<String, TreeAVL> Creartabla(String color, String ruta){
-       
-       
-       
+    public static HashMap<String, TreeAVL> Creartabla(String color, String ruta){    
         HashMap<String, TreeAVL> tabla = new HashMap<>();
-        Comparator<Integer> g = (n1, n2) -> n1.compareTo(n2);
-
+        Comparator<Integer> g = (n1, n2) -> n1.compareTo(n2);    
         
-        
-         switch(color){
-             case "Amarillo":
-                 try {
-                File cartones = new File(ruta);
-                Scanner lector = new Scanner(cartones);
-                while (lector.hasNextLine()) {
-                  TreeAVL miArbol = new TreeAVL(g);
-                  String linea = lector.nextLine();
-                  String[] datos=linea.split(",");
-                  if(datos[0].contains("Amarillo")){
-                      
-                      for(int i=1; i<15;i++){
-                          miArbol.add(Integer. parseInt(datos[i]));
-                          
-                      }
-                      tabla.put(datos[0], miArbol);
-                      
-                  }
-                  
+        if(color.equals("Amarillo")){
+            formarArbol(ruta, g, tabla, color, 15);
         }
-                lector.close();
-        } catch (FileNotFoundException e) {
-                System.out.println("Ocurrió un error");
-                e.printStackTrace();
+        else if (color.equals("Azul")){
+            formarArbol(ruta, g, tabla, color, 15 );
         }
-        case "Azul":
-                 try {
-                File cartones = new File(ruta);
-                Scanner lector = new Scanner(cartones);
-                while (lector.hasNextLine()) {
-                  TreeAVL miArbol = new TreeAVL(g);
-                  String linea = lector.nextLine();
-                  String[] datos=linea.split(",");
-                  if(datos[0].contains("Azul")){
-                      
-                      for(int i=1; i<15;i++){
-                          miArbol.add(Integer. parseInt(datos[i]));
-                          
-                      }
-                      tabla.put(datos[0], miArbol);
-                      
-                  }
-                  
-        }
-                lector.close();
-        } catch (FileNotFoundException e) {
-                System.out.println("Ocurrió un error");
-                e.printStackTrace();
-        }
-        case "Rojo":
-                 try {
-                File cartones = new File(ruta);
-                Scanner lector = new Scanner(cartones);
-                while (lector.hasNextLine()) {
-                  TreeAVL miArbol = new TreeAVL(g);
-                  String linea = lector.nextLine();
-                  String[] datos=linea.split(",");
-                  if(datos[0].contains("Rojo")){
-                      
-                      for(int i=1; i<12;i++){
-                          miArbol.add(Integer. parseInt(datos[i]));
-                          
-                      }
-                      tabla.put(datos[0], miArbol);
-                      
-                  }
-                  
-        }
-                lector.close();
-        } catch (FileNotFoundException e) {
-                System.out.println("Ocurrió un error");
-                e.printStackTrace();
-        }
-                 
-         }
-         
+        else if(color.equals("Rojo")){
+            formarArbol(ruta, g, tabla, color,12 ); 
+        }   
         return tabla;
     }
     
-    public static String buscarNumeros(HashMap<String, TreeAVL> map, Integer numBuscar){
-        
-        
-        
+    public static String buscarNumeros(HashMap<String, TreeAVL> map, Integer numBuscar){        
         for (String key : map.keySet()) {
             TreeAVL tmpArbol=map.get(key);
             tmpArbol.remove(numBuscar);
             if(tmpArbol.getSize()==0){
                 return key;
-            }
-        
+            }      
         }
-        return null;
-        
-    
-        
+        return null;    
     }
+    
+    public static void ingresoNumeros(int maximo, HashMap<String,TreeAVL> color){
+        Scanner sc= new Scanner(System.in); 
+        System.out.println("Ingrese números entre 0-20");
+        boolean cierto=true;
+        int i=1;
+        while(cierto){          
+            if(i<=maximo){
+                System.out.println("Número ["+i+"]:");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20&&numero>0){
+                    String tmp=buscarNumeros(color, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        cierto=false;
+                    }
+                    i++; 
+                }
+                else{
+                    System.out.println("El número que ingreso se encuentra fuera del rango. Ingrese otro por favor");                    
+                }
+            }           
+            else if(i==maximo+1){
+                System.out.println("\n Como no se ha encontrado ganador, vamos a la ronda extra");
+                System.out.println("Ingresa un número: ");
+                Integer numero= sc.nextInt(); 
+                if(numero<=20&& numero>0){
+                    String tmp=buscarNumeros(color, numero);
+                    if(tmp!=null){
+                        System.out.println("El ganador de esta ronda es: "+tmp);
+                        break;
+                    }                    
+                    System.out.println("Lo sentimos, no existe tabla ganadora en esta ronda");
+                    cierto=false;
+                }
+                else{
+                    System.out.println("El número que ingreso es mayor a 20 ingrese otro por favor");
+                }                
+            }
+            else{
+                cierto=false;
+            }  
+        }
+    }
+    
+   public static void formarArbol(String ruta, Comparator<Integer> g, HashMap<String, TreeAVL> tabla, String color, int Max ){
+       try {
+            File cartones = new File(ruta);
+            Scanner lector = new Scanner(cartones);
+            while (lector.hasNextLine()) {
+                TreeAVL miArbol = new TreeAVL(g);
+                String linea = lector.nextLine();
+                String[] datos=linea.split(",");
+                if(datos[0].contains(color)){                      
+                    for(int i=1; i<Max;i++){
+                        miArbol.add(Integer. parseInt(datos[i]));                          
+                    }
+                    tabla.put(datos[0], miArbol);                      
+                }                 
+            }
+            lector.close();
+            System.out.println("Se cargaron correctamente sus datos de cartones "+color);
+        } catch (FileNotFoundException e) {
+                System.out.println("No se encontró el archivo que específico");  
+                
+        }       
+   } 
 }
